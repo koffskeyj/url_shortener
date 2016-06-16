@@ -16,12 +16,18 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from url_app.views import IndexView, CreateUserView, CreateBookmarkView, BookmarkView
+from django.contrib.auth.views import login, logout
+from url_app import views
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', IndexView.as_view(), name="index_view"),
-    url(r'create_user', CreateUserView.as_view(), name="create_user_view"),
-    url(r'create_bookmark', CreateBookmarkView.as_view(), name="create_bookmark_view"),
-    url(r'list_bookmarks', BookmarkView.as_view(), name="bookmark_view")
+    url(r'^$', login, name="index_view"),
+    url(r'^login/$', login, name="home_view"),
+    url(r'^logout/$', logout, name="logout_view"),
+    url(r'^create_user/$', CreateUserView.as_view(), name="create_user_view"),
+    url(r'^create_bookmark/$', CreateBookmarkView.as_view(), name="create_bookmark_view"),
+    url(r'^accounts/profile/$', views.profile_view, name="profile_view"),
+    url(r'^b/$', BookmarkView.as_view(), name="bookmark_view")
 
 ]

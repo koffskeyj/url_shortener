@@ -6,11 +6,10 @@ hashids = Hashids()
 
 
 class Bookmark(models.Model):
-    bookmark = models.CharField(max_length=300)
-    bookmark_id = models.CharField(max_length=6)
+    URL = models.CharField(max_length=300)
     title = models.CharField(max_length=30)
     description = models.TextField()
     user = models.ForeignKey(User)
 
     def __str__(self):
-        return self.bookmark
+        return self.title

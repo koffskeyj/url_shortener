@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View, CreateView, ListView
+from django.views.generic.edit import UpdateView
 
 from hashids import Hashids
 from url_app.models import Bookmark
@@ -26,19 +27,38 @@ class CreateUserView(CreateView):
 class CreateBookmarkView(CreateView):
 
     model = Bookmark
-    fields = ["bookmark", "title", "description"]
-    success_url = "/b"
+    fields = ["URL", "title", "description"]
+    success_url = "/create_bookmark"
+
+    def form_valid(self, form):
+        bookmark = form.save(commit=False)
+        bookmark.user = self.request.user
+        return super(CreateBookmarkView, self).form_valid(form)
+
+
+class UpdateBookmarkView(UpdateView):
+
+    model = Bookmark
+    fields = ["URL", "title", "description"]
+    template_name = 'url_app/bookmark_update_form.html'
+    success_url = "/accounts/profile/b"
+
+    def form_valid(self, form):
+        bookmark = form.save(commit=False)
+        bookmark.user = self.request.user
+        return super(UpdateBookmarkView, self).form_valid(form)
 
 
 class BookmarkView(ListView):
-    model = Bookmark
+
+     def get_queryset(self):
+         return Bookmark.objects.filter(user=self.request.user)
+
 
 @login_required
 def profile_view(request):
-
-    return render(request, "profile.html")
-
-
-
-
+    profile_data = {
+        "data": list(Bookmark.objects.filter(user=request.user))
+    }
+    return render(request, "profile.html", profile_data)
 

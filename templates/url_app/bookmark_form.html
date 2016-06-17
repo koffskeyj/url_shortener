@@ -6,12 +6,14 @@
     <title>Create Bookmark</title>
 </head>
 <body>
+<div class="container">
 {% block content %}
-<form action="" method="post">
+<form action="" align="center" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Create bookmark">
 </form>
 {% endblock %}
+</div>
 </body>
 </html>

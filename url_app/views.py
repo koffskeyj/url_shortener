@@ -27,7 +27,7 @@ class CreateBookmarkView(CreateView):
 
     model = Bookmark
     fields = ["bookmark", "title", "description"]
-    success_url = "/"
+    success_url = "/b"
 
 
 class BookmarkView(ListView):

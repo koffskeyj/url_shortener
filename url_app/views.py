@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View, CreateView, ListView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy, reverse
 
 from hashids import Hashids
 from url_app.models import Bookmark
@@ -49,10 +50,20 @@ class UpdateBookmarkView(UpdateView):
         return super(UpdateBookmarkView, self).form_valid(form)
 
 
+class DeleteBookmarkView(DeleteView):
+
+    model = Bookmark
+    template_name = 'url_app/bookmark_confirm_delete.html'
+    success_url = "/accounts/profile/b"
+
+
 class BookmarkView(ListView):
 
      def get_queryset(self):
          return Bookmark.objects.filter(user=self.request.user)
+
+     class Meta:
+         ordering = ["-title"]
 
 
 @login_required

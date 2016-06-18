@@ -13,3 +13,8 @@ class Bookmark(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Click(models.Model):
+    URL = models.ForeignKey(Bookmark)
+    date_time = models.DateTimeField()

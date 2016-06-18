@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from url_app.views import IndexView, CreateUserView, CreateBookmarkView, BookmarkView, UpdateBookmarkView, DeleteBookmarkView
+from url_app.views import IndexView, CreateUserView, CreateBookmarkView, BookmarkView, UpdateBookmarkView, DeleteBookmarkView, AllBookmarksView, ShortenedRedirect
 from django.contrib.auth.views import login, logout
 from url_app import views
 
@@ -29,5 +29,7 @@ urlpatterns = [
     url(r'^update_bookmark/(?P<pk>\d+)$', UpdateBookmarkView.as_view(), name="update_bookmark_view"),
     url(r'^delete_bookmark/(?P<pk>\d+)$', DeleteBookmarkView.as_view(), name="delete_bookmark_view"),
     url(r'^accounts/profile/$', views.profile_view, name="profile_view"),
-    url(r'^accounts/profile/b$', BookmarkView.as_view(), name="bookmark_view")
+    url(r'^accounts/b$', BookmarkView.as_view(), name="bookmark_view"),
+    url(r'^bookmarks_by_users/$', AllBookmarksView.as_view(), name="all_bookmarks_view"),
+    url(r'^(?P<hash_id>\w+)/$', ShortenedRedirect.as_view(), name="shortened_redirect")
 ]

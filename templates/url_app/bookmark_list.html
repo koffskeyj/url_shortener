@@ -9,7 +9,8 @@
 <div class="container">
 {% block content %}
     {% for item in object_list %}<br>
-         {{ item }} ::
+         {{ item }} :: {{ item.description }} ::
+        <a href="{{ item.URL }}">{{ item.hash_id }}</a> |
        <a href={% url "update_bookmark_view" pk=item.id %}>Update</a> ::
         <a href="{% url "delete_bookmark_view" pk=item.id %}">Delete</a>
     {% endfor %}

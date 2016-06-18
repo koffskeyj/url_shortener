@@ -6,13 +6,18 @@ hashids = Hashids()
 
 
 class Bookmark(models.Model):
-    URL = models.CharField(max_length=300)
+    URL = models.URLField(max_length=300)
     title = models.CharField(max_length=30)
     description = models.TextField()
     user = models.ForeignKey(User)
+    hash_id = models.CharField(max_length=10)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['-created']
 
 
 class Click(models.Model):

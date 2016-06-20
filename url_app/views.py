@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View, CreateView, ListView, RedirectView
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic.edit import \
+    UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy, reverse
 
 from hashids import Hashids
@@ -84,7 +85,9 @@ class ShortenedRedirect(RedirectView):
         hash_id = self.kwargs.get('hash_id', None)
         link = Bookmark.objects.get(hash_id=hash_id)
         self.url = link.URL
-        return super(ShortenedRedirect, self).get(request, args, **kwargs)
+        link.clicked += 1
+        link.save()
+        return super(ShortenedRedirect, self).get(request, *args, **kwargs)
 
 
 @login_required

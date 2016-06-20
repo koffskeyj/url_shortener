@@ -9,7 +9,8 @@
 {% block content %}
 <div class="container">
     {% for item in object_list %}
-        {{ item.title }} :: {{ item.description }}
+        {{ item.title }} :: {{ item.description }} ::
+        <a href="{{ item.URL }}">{{ item.hash_id }}</a>
         <br>
     {% endfor %}
 {% endblock %}

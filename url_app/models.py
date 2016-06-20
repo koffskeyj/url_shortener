@@ -12,12 +12,15 @@ class Bookmark(models.Model):
     user = models.ForeignKey(User)
     hash_id = models.CharField(max_length=10)
     created = models.DateTimeField(auto_now_add=True)
+    clicked = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
 
     class Meta:
         ordering = ['-created']
+
+
 
 
 class Click(models.Model):

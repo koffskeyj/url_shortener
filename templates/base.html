@@ -29,6 +29,7 @@
         <li><a href="{% url 'all_bookmarks_view' %}">View All Bookmarks</a></li>
         <li><a href="{% url 'logout_view' %}">Logout</a></li>
         <p class="navbar-text">Signed in as <a href="#" class="navbar-link">{{ request.user }}</a></p>
+</nav>
     {% else %}
     <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -47,6 +48,7 @@
         <li><a href="{% url 'create_user_view' %}">Create User</a></li>
         <li><a href="{% url 'all_bookmarks_view' %}">View All Bookmarks</a></li>
     {% endif %}
+</nav>    
 <br>
 <br>
 <br>
